@@ -54,6 +54,26 @@ then
     sudo systemctl start docker
 fi
 
+# Install Kali Default Programs
+read -p "Do you want to install Kali Default Programs? y/n " -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    echo -e "${RED}[*] Installing Docker${NC}"
+    sudo apt-get install kali-linux-default
+fi
+
+# Install Kali Web Tools
+read -p "Do you want to install Kali Web Tools y/n " -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    echo -e "${RED}[*] Installing Docker${NC}"
+    sudo apt-get install kali-tools-web
+fi
+
+
+
 # Download SecLists
 read -p "Do you want to download SecLists Wordlist? y/n " -n 1 -r
 echo    # (optional) move to a new line
@@ -93,6 +113,3 @@ then
 fi
 
 echo -e "${RED}[*] ALL DONE, HAPPY HACKING!${NC}"
-
-
-
