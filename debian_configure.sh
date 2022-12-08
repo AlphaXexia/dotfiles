@@ -4,7 +4,7 @@
 RED='\033[0;31m'
 NC='\033[0m'
 
-echo -e "${RED}[*] Parrot OS Customization Script${NC}"
+echo -e "${RED}[*] Debian(Parrot/Kali) OS Customization Script${NC}"
 
 # Update Repositories
 echo -e "${RED}[*] Updating repo list${NC}"
@@ -25,6 +25,22 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
     echo -e "${RED}[*] Installing Chromium${NC}"
     sudo apt-get install chromium
+fi
+
+# Install Tilix
+read -p "Do you want to install Tilix? y/n " -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    echo -e "${RED}[*] Installing Tilix${NC}"
+    sudo apt-get install tilix
+    read -p "Do you want to set Tilix as your default terminal? y/n " -n 1 -r
+    echo    # (optional) move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        echo -e "${RED}[*] Setting Tilix as Default Terminal${NC}"
+        sudo update-alternatives --config x-terminal-emulator
+    fi
 fi
 
 # Install Docker
