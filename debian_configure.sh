@@ -59,7 +59,7 @@ read -p "Do you want to install Kali Default Programs? y/n " -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    echo -e "${RED}[*] Installing Docker${NC}"
+    echo -e "${RED}[*] Installing Kali Default Programs${NC}"
     sudo apt-get install kali-linux-default
 fi
 
@@ -68,7 +68,7 @@ read -p "Do you want to install Kali Web Tools y/n " -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    echo -e "${RED}[*] Installing Docker${NC}"
+    echo -e "${RED}[*] Installing Kali Web Tools${NC}"
     sudo apt-get install kali-tools-web
 fi
 
