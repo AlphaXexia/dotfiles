@@ -67,15 +67,6 @@ then
     # Run Strap Script
     sudo ./strap.sh
     
-    # Display Software Categories
-    sudo pacman -Sg | grep blackarch | while read -r line; do
-        category=$(echo $line | awk '{print $1}')
-        packages=$(echo $line | awk '{print $2}')
-        size=$(pacman -Si $packages | grep "Installed Size" | awk '{print $4}')
-        printf "%-20s %-20s %s\n" "$category" "$packages" "$size"
-    done
-
-    
     # Add BlackArch keyring
     sudo pacman -S blackarch-keyring
     
@@ -87,6 +78,7 @@ then
         read -p "Do you want to install BlackArch packages? y/n " -n 1 -r
         if [[ $REPLY =~ ^[Yy]$ ]]; then
             echo -e "\nSelect a package to install:"
+            echo -e "\n I am only showing the most common packages"
             echo "1. blackarch-webapp (size: $(pacman -Si blackarch-webapp | grep 'Installed Size' | awk '{print $4}'))"
             echo "2. blackarch-spoof (size: $(pacman -Si blackarch-spoof | grep 'Installed Size' | awk '{print $4}'))"
             echo "3. blackarch-recon (size: $(pacman -Si blackarch-recon | grep 'Installed Size' | awk '{print $4}'))"
