@@ -54,22 +54,22 @@ then
     sudo systemctl start docker
 fi
 
-# Install Kali Default Programs
-read -p "Do you want to install Kali Default Programs? y/n " -n 1 -r
-echo    # (optional) move to a new line
+# Install BlackArch keyring
+read -p "Do you want to install Blackarch tools? y/n " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    echo -e "${RED}[*] Installing Kali Default Programs${NC}"
-    sudo pacman -S kali-linux-default
-fi
-
-# Install Kali Web Tools
-read -p "Do you want to install Kali Web Tools y/n " -n 1 -r
-echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    echo -e "${RED}[*] Installing Kali Web Tools${NC}"
-    sudo pacman -S kali-tools-web
+    # Add BlackArch keyring
+    curl -O https://blackarch.org/keyring/blackarch-keyring.pkg.tar.xz
+    sudo pacman-key --init
+    sudo pacman-key --add blackarch-keyring.pkg.tar.xz
+    sudo pacman-key --populate blackarch
+    sudo pacman -Syyu
+    
+    # Add BlackArch repositories
+    echo '[blackarch]' | sudo tee -a /etc/pacman.conf
+    echo 'Server = https://mirror.f4st.host/blackarch/$repo/os/$arch' | sudo tee -a /etc/pacman.conf
+    echo '[blackarch-testing]' | sudo tee -a /etc/pacman.conf
+    echo 'Server = https://mirror.f4st.host/blackarch/$repo/os/$arch' | sudo tee -a /etc/pacman.conf
 fi
 
 # Download SecLists
@@ -120,4 +120,28 @@ then
 fi
 
 # Install RustScan
-read -p "Do you want to install RustScan? y/n " -n 
+# Check if distribution is Manjaro or any other Arch-based distro
+if [[ $(lsb_release -is) == "ManjaroLinux" ]]
+then
+    # Install RustScan for Manjaro
+    read -p "Do you want to install RustScan? y/n " -n 1 -r
+    echo    # (optional) move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        echo -e "${RED}[*] Installing RustScan${NC}"
+        yay -S rustscan
+    fi
+else
+    # Install RustScan for other Arch-based distros
+    read -p "Do you want to install RustScan? y/n " -n 1 -r
+    echo    # (optional) move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        echo -e "${RED}[*] Installing RustScan${NC}"
+        wget https://github.com/RustScan/RustScan/releases/download/2.0.0/rustscan_2.0.0_amd64.deb -O rustscan.deb
+        sudo dpkg -i rustscan.deb
+        rm rustscan.deb
+    fi
+fi
+
+echo -e "${RED}[*] ALL DONE, HAPPY HACKING!${NC}"
