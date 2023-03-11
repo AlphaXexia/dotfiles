@@ -53,6 +53,9 @@ then
     sudo systemctl enable docker
     sudo systemctl start docker
 fi
+
+#!/bin/bash
+
 # Install BlackArch Repositories on Arch Linux
 read -p "Do you want to install BlackArch tools? y/n " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
@@ -72,46 +75,54 @@ then
     # Add BlackArch keyring
     sudo pacman -S blackarch-keyring
     
+    # Update Package List
+    sudo pacman -Syyu
+    
     # Prompt to Install Packages
     while true; do
         read -p "Do you want to install BlackArch packages? y/n " -n 1 -r
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-            echo -e "\nSelect a package to install:"
-            echo "1. blackarch-webapp"
-            echo "2. blackarch-spoof"
-            echo "3. blackarch-recon"
-            echo "4. blackarch-pentesting"
-            echo "5. blackarch-networking"
-            echo "6. blackarch-malware"
-            echo "7. blackarch-exploitation"
-            echo "8. blackarch-database"
-            echo "9. blackarch-cryptography"
-            echo "0. Quit"
-            read -p "Enter your choice: " choice
-            
-            case $choice in
-                1) sudo pacman -S blackarch-webapp;;
-                2) sudo pacman -S blackarch-spoof;;
-                3) sudo pacman -S blackarch-recon;;
-                4) sudo pacman -S blackarch-pentesting;;
-                5) sudo pacman -S blackarch-networking;;
-                6) sudo pacman -S blackarch-malware;;
-                7) sudo pacman -S blackarch-exploitation;;
-                8) sudo pacman -S blackarch-database;;
-                9) sudo pacman -S blackarch-cryptography;;
-                0) break;;
-                *) echo "Invalid option";;
-            esac
+            while true; do
+                echo -e "\nSelect a package to install:"
+                echo "1. blackarch-webapp"
+                echo "2. blackarch-spoof"
+                echo "3. blackarch-recon"
+                echo "4. blackarch-pentesting"
+                echo "5. blackarch-networking"
+                echo "6. blackarch-malware"
+                echo "7. blackarch-exploitation"
+                echo "8. blackarch-database"
+                echo "9. blackarch-cryptography"
+                echo "0. Quit"
+                read -p "Enter your choice: " choice
+
+                case $choice in
+                    1) sudo pacman -S blackarch-webapp;;
+                    2) sudo pacman -S blackarch-spoof;;
+                    3) sudo pacman -S blackarch-recon;;
+                    4) sudo pacman -S blackarch-pentesting;;
+                    5) sudo pacman -S blackarch-networking;;
+                    6) sudo pacman -S blackarch-malware;;
+                    7) sudo pacman -S blackarch-exploitation;;
+                    8) sudo pacman -S blackarch-database;;
+                    9) sudo pacman -S blackarch-cryptography;;
+                    0) exit;;
+                    *) echo "Invalid option";;
+                esac
+
+                read -p "Do you want to install another BlackArch package? y/n " -n 1 -r
+                if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                    break
+                fi
+            done
         else
             break
         fi
     done
     
     echo "BlackArch packages installation complete."
-        
-    # Update Package List
-    sudo pacman -Syyu
 fi
+
 
 # Download SecLists
 read -p "Do you want to download SecLists Wordlist? y/n " -n 1 -r
