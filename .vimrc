@@ -1,70 +1,67 @@
-# From Neuralnine's vimrc configurations
+set nocompatible              " be iMproved, required
+filetype off                  " required
 set number
 set relativenumber
-set autoindent
-set tabstop=4
-set shiftwidth=4
-set smarttab
-set softtabstop=4
-set mouse=a
 
-call plug#begin()
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
 
-Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
-Plug 'https://github.com/preservim/nerdtree' " NerdTree
-Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
-Plug 'https://github.com/vim-airline/vim-airline' " Status bar
-Plug 'https://github.com/lifepillar/pgsql.vim' " PSQL Pluging needs :SQLSetType pgsql.vim
-Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
-Plug 'https://github.com/rafi/awesome-vim-colorschemes' " Retro Scheme
-Plug 'https://github.com/neoclide/coc.nvim'  " Auto Completion
-Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
-Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
-Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
-Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 
-set encoding=UTF-8
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+" Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" Git plugin not hosted on GitHub
+" Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+" Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
+Plugin 'SirVer/ultisnips'
 
-call plug#end()
-
-nnoremap <C-f> :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-l> :call CocActionAsync('jumpDefinition')<CR>
-
-nmap <F8> :TagbarToggle<CR>
-
-set completeopt-=preview " For No Previews
-
-colorscheme jellybeans
-
-let g:NERDTreeDirArrowExpandable="+"
-let g:NERDTreeDirArrowCollapsible="~"
-
-" --- Just Some Notes ---
-" :PlugClean :PlugInstall :UpdateRemotePlugins
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
 "
-" :CocInstall coc-python
-" :CocInstall coc-clangd
-" :CocInstall coc-snippets
-" :CocCommand snippets.edit... FOR EACH FILE TYPE
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
 
-" air-line
-let g:airline_powerline_fonts = 1
+" Put your non-Plugin stuff after this line
 
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
+" List all of your plugins here
+call vundle#begin()
+Plugin 'tpope/vim-surround'         " Surrounding ysw)
+Plugin 'preservim/nerdtree'         " NerdTree
+Plugin 'tpope/vim-commentary'       " For Commenting gcc & gc
+Plugin 'vim-airline/vim-airline'    " Status bar
+Plugin 'lifepillar/pgsql.vim'       " PSQL Pluging needs :SQLSetType pgsql.vim
+Plugin 'ap/vim-css-color'           " CSS Color Preview
+Plugin 'rafi/awesome-vim-colorschemes' " Retro Scheme
+Plugin 'neoclide/coc.nvim'          " Auto Completion
+Plugin 'ryanoasis/vim-devicons'     " Developer Icons
+Plugin 'tc50cal/vim-terminal'       " Vim Terminal
+Plugin 'preservim/tagbar'           " Tagbar for code navigation
+Plugin 'terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
+call vundle#end()                  " required
 
-" airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-
-inoremap <expr> <Tab> pumvisible() ? coc#_select_confirm() : "<Tab>"
-
+set number
+syntax on
 
