@@ -185,7 +185,9 @@ then
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         echo -e "${RED}[*] Installing RustScan${NC}"
-        yay -S rustscan
+        sudo pacman -S base-devel
+        git clone https://aur.archlinux.org/yay.git ~/Documents/github-repos/
+        makepkg -si --directory ~/Documents/github-repos/yay
     fi
 else
     # Install RustScan for other Arch-based distros
@@ -193,6 +195,7 @@ else
     echo    # (optional) move to a new line
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
+        
         echo -e "${RED}[*] Installing RustScan${NC}"
         wget https://github.com/RustScan/RustScan/releases/download/2.0.0/rustscan_2.0.0_amd64.deb -O rustscan.deb
         sudo dpkg -i rustscan.deb
