@@ -121,14 +121,30 @@ then
     sudo wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O /usr/share/wordlists/SecList.zip
 fi
 
-# Custom .vimrc
+# Check if Vim is installed
+if ! command -v vim &> /dev/null
+then
+    read -p "Vim is not installed. Do you want to install it now? y/n " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        echo "Installing Vim..."
+        sudo pacman -S vim
+    else
+        echo "Vim is required for this script. Exiting..."
+        exit 1
+    fi
+fi
+
+# Install custom .vimrc
 read -p "Do you want to use the custom .vimrc file? y/n " -n 1 -r
-echo    # (optional) move to a new line
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     echo -e "${RED}[*] Setting up .vimrc${NC}"
     echo "set number" >> ~/.vimrc
     echo "syntax on" >> ~/.vimrc
+    echo "Done."
 fi
 
 # Installing oh-my-zsh
